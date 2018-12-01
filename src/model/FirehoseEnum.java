@@ -12,4 +12,5 @@ public enum FirehoseEnum {
     }
     public int getRadius() { return radius; }
     public int getCost() { return radius; }
+
 }

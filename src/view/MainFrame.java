@@ -1,7 +1,7 @@
 package view;
 
 import controller.TimerListener;
-import model.WindowModel;
+import model.LevelsEnum;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,37 +17,47 @@ public class MainFrame extends JFrame {
     private boolean stopVer;
     private Timer timer;
     private House house;
+    private LevelsEnum levelsEnum;
 
-    public MainFrame() {
+    private static final int windowWidth = 60;
+    private static final int windowHeight = 70;
+    private static final int offset = 50;
+
+    public MainFrame(LevelsEnum levelsEnum) {
+        this.levelsEnum = levelsEnum;
+
         initUI();
 
         setTitle("FireFighting");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(true);
-        setSize(500, 500);
+        int width = windowWidth * levelsEnum.getWindowsHorizontal() + offset * (levelsEnum.getWindowsHorizontal() - 1) + 50;
+        int height = windowHeight * levelsEnum.getWindowsVertical() + offset * (levelsEnum.getWindowsVertical() - 1) + 50;
+        setSize(width, height);
         setLocationRelativeTo(null);
         setVisible(true);
         setLayout(null);
     }
 
     private void initUI() {
-
-        horizontalSlider = new JSlider(JSlider.HORIZONTAL, 400, 0);
+        horizontalSlider = new JSlider(JSlider.HORIZONTAL, 360, 0);
         horizontalSlider.setEnabled(false);
-        horizontalSlider.setBounds(30, 20, 400, 30);
+        horizontalSlider.setBounds(30, 20, 360, 30);
 
-        verticalSlider = new JSlider(JSlider.VERTICAL, 0, 400, 0);
+        verticalSlider = new JSlider(JSlider.VERTICAL, 0, 360, 0);
         verticalSlider.setEnabled(false);
-        verticalSlider.setBounds(10, 30, 20, 400);
+        verticalSlider.setBounds(10, 30, 20, MainFrame.this.getHeight() - 50);
 
         add(horizontalSlider);
         add(verticalSlider);
 
         moveHorizontalSlider();
 
-        WindowModel windowModel =  new WindowModel(false, false);
-        Window window = new Window(60, 60, windowModel);
-        add(window);
+        TimerListener timerListener = new TimerListener(MainFrame.this);
+        timer = new Timer(levelsEnum.getTimeInSeconds(), timerListener);
+        add(timer);
+        house = new House(levelsEnum);
+        add(house);
 
         addKeyListener(new KeyAdapter() {
 
@@ -59,21 +69,26 @@ public class MainFrame extends JFrame {
                 if (key == KeyEvent.VK_SPACE) {
                     if(!stop) {
                         stop = true;
+                        stopVer = false;
                         moveVerticalSlider();
                     } else {
                         stopVer = true;
-                        countMarks();
+                        house.putOut(countMarks());
+                        if(!house.checkVictory())
+                            restart();
+                        else{
+                            stopEverything();
+                            new ResultFrame(true);
+                        }
                     }
                 }
             }
         });
 
-        TimerListener timerListener = new TimerListener(MainFrame.this);
-        timer = new Timer(15, timerListener);
-        add(timer);
     }
 
     private void moveVerticalSlider() {
+        verticalSlider.setInverted(true);
         Thread goSlider = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -120,7 +135,8 @@ public class MainFrame extends JFrame {
     }
 
     private void restart() {
-
+        stop = false;
+        moveHorizontalSlider();
     }
 
     public void stopEverything() {

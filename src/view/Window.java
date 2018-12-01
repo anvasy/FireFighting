@@ -13,6 +13,11 @@ public class Window extends Sprite {
         initWindow();
     }
 
+    public void setFire(boolean fire) {
+        windowModel.setOnFire(fire);
+        //initWindow();
+    }
+
     private void initWindow() {
 
         if(windowModel.getIsOnFire())
@@ -23,6 +28,10 @@ public class Window extends Sprite {
             loadImage("resources/window.png");
 
         getImageDimensions();
+    }
+
+    public WindowModel getWindowModel() {
+        return windowModel;
     }
 
 }

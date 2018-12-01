@@ -16,4 +16,12 @@ public class WindowModel {
     public boolean getIsHuman() {
         return isHuman;
     }
+
+    public void setHuman(boolean human) {
+        isHuman = human;
+    }
+
+    public void setOnFire(boolean onFire) {
+        isOnFire = onFire;
+    }
 }

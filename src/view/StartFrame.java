@@ -45,7 +45,9 @@ public class StartFrame extends JFrame {
         start.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               // new MainFrame((LevelsEnum) chooseLevels.getSelectedItem());
+               new MainFrame((LevelsEnum)chooseLevels.getSelectedItem());
+                setVisible(false);
+                dispose();
             }
         });
     }
