@@ -15,7 +15,6 @@ public class Window extends Sprite {
 
     public void setFire(boolean fire) {
         windowModel.setOnFire(fire);
-        //initWindow();
     }
 
     private void initWindow() {

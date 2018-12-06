@@ -1,23 +1,17 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UserSettings {
-    private String name;
     private int money;
     private FirehoseEnum firehouse;
-    private int record;
+    private List<FirehoseEnum> boughtHose;
 
     public UserSettings() {
-        name = "NEW";
         money = 0;
-        record = 0;
         firehouse = FirehoseEnum.STANDART;
-    }
-
-    public UserSettings(String name, int money, FirehoseEnum firehouse, int record) {
-        this.name = name;
-        this.money = money;
-        this.firehouse = firehouse;
-        this.record = record;
+        boughtHose = new ArrayList<>();
     }
 
     public void withdrawMoney(int price) {
@@ -28,24 +22,12 @@ public class UserSettings {
         money = money + earn;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public void setMoney(int money) {
         this.money = money;
     }
 
-    public void setRecord(int record) {
-        this.record = record;
-    }
-
     public void setFirehouse(FirehoseEnum firehouse) {
         this.firehouse = firehouse;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public int getMoney() {
@@ -56,7 +38,11 @@ public class UserSettings {
         return firehouse;
     }
 
-    public int getRecord() {
-        return record;
+    public List<FirehoseEnum> getBoughtHose() {
+        return boughtHose;
+    }
+
+    public void setBoughtHose(List<FirehoseEnum> boughtHose) {
+        this.boughtHose = boughtHose;
     }
 }

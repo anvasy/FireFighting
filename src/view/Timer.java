@@ -3,6 +3,7 @@ package view;
 import controller.TimerListener;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -11,16 +12,24 @@ public class Timer extends JPanel {
     private javax.swing.Timer timer;
     private JLabel showTime;
     private TimerListener timerListener;
+    private TimeCounter tc;
 
     public Timer(int max, TimerListener timerController) {
+        setOpaque(false);
+
         showTime = new JLabel("00:00");
-        TimeCounter tc = new TimeCounter(max);
+        showTime.setFont(new Font("Serif", Font.PLAIN, 20));
+        tc = new TimeCounter(max);
         timer = new javax.swing.Timer(1000, tc);
         timer.start();
 
         this.timerListener = timerController;
 
         add(showTime);
+    }
+
+    public int getTimeLeft() {
+        return tc.counter;
     }
 
     public void stop() {

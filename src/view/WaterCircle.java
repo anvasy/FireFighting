@@ -14,7 +14,12 @@ public class WaterCircle extends Sprite {
     }
 
     private void initCircle() {
-        loadImage("resources/water.png");
+        if(firehose.equals(FirehoseEnum.STANDART))
+            loadImage("resources/water.png");
+        if(firehose.equals(FirehoseEnum.IMPROVED))
+            loadImage("resources/i_water.png");
+        if(firehose.equals(FirehoseEnum.ELITE))
+            loadImage("resources/e_water.png");
         getImageDimensions();
     }
 

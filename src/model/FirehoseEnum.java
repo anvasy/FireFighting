@@ -1,7 +1,7 @@
 package model;
 
 public enum FirehoseEnum {
-    STANDART(20, 0), IMPROVED(30, 200), ELITE(30, 200);
+    STANDART(20, 0), IMPROVED(30, 200), ELITE(40, 300);
 
     private final int radius;
     private final int cost;
@@ -11,6 +11,6 @@ public enum FirehoseEnum {
         this.cost = cost;
     }
     public int getRadius() { return radius; }
-    public int getCost() { return radius; }
+    public int getCost() { return cost; }
 
 }

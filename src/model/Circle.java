@@ -55,10 +55,12 @@ public class Circle {
         if (distY > (rect.height/2 + radius))
             return false;
 
-        if (distX <= (rect.width/2))
+        if (distX <= (rect.width/2)) {
             return true;
-        if (distY <= (rect.height/2))
+        }
+        if (distY <= (rect.height/2)) {
             return true;
+        }
 
         int corner = (distX- rect.width/2)^2 +
                 (distY - rect.height/2)^2;

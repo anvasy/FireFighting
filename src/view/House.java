@@ -16,21 +16,25 @@ public class House extends JPanel {
     private LevelsEnum levelsEnum;
     private boolean out;
     private WaterCircle waterCircle;
-    private static final int windowWidth = 65;
-    private static final int windowHeight = 75;
+    private FirehoseEnum firehoseEnum;
+    private int score = 0;
 
-    public House(LevelsEnum levelsEnum) {
+    private static final int windowWidth = 60;
+    private static final int windowHeight = 70;
+    private static final int windowScore = 20;
+
+    public House(LevelsEnum levelsEnum, FirehoseEnum firehoseEnum) {
+        setOpaque(false);
         this.levelsEnum = levelsEnum;
+        this.firehoseEnum = firehoseEnum;
         setDoubleBuffered(true);
         setLayout(null);
         setVisible(true);
-
         buildHouse();
         WindowModel windowModel =  new WindowModel(false, false);
         Window window = new Window(50, 50, windowModel);
         add(window);
     }
-
 
     private void buildHouse() {
 
@@ -43,7 +47,6 @@ public class House extends JPanel {
 
         Set<Integer> burning = setOnFire();
         for (Integer num : burning) {
-            System.out.println(num);
             windowModels.get(num - 1).setOnFire(true);
         }
 
@@ -67,7 +70,7 @@ public class House extends JPanel {
         Thread putOut = new Thread(new Runnable() {
             @Override
             public void run() {
-                waterCircle = new WaterCircle(point.x, point.y, FirehoseEnum.STANDART);
+                waterCircle = new WaterCircle(point.x, point.y, firehoseEnum);
                 out = true;
                 repaint();
                 try {
@@ -82,10 +85,16 @@ public class House extends JPanel {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                if(checkVictory()) {
+                    MainFrame frame = (MainFrame) getRootPane().getParent();
+                    score += frame.countTimerScore();
+                    frame.pauseEverything();
+                    frame.dispose();
+                    new ResultFrame(true, frame.getController(), score);
+                }
             }
         });
         putOut.start();
-
     }
 
     @Override
@@ -118,15 +127,14 @@ public class House extends JPanel {
 
     public void checkCollisions() {
 
-        Circle circle = new Circle(10, waterCircle.getX(), waterCircle.getY());
+        Circle circle = new Circle(firehoseEnum.getRadius(), waterCircle.getX(), waterCircle.getY());
 
         for (Window window : windows) {
-
             Rectangle win = window.getBounds();
-
             if (circle.intersects(win) && window.getWindowModel().getIsOnFire()) {
                 window.loadImage("resources/window_human.png");
                 window.setFire(false);
+                score += windowScore;
             }
         }
         out = false;
@@ -138,8 +146,7 @@ public class House extends JPanel {
             if (window.getWindowModel().getIsOnFire())
                 counter++;
         }
-
-        return (counter > 0);
+        return (counter == 0);
     }
 
 }
