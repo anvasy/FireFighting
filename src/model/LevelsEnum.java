@@ -1,7 +1,7 @@
 package model;
 
 public enum LevelsEnum {
-    FIRSTTIMER(2,2,1,10,20), BEGINNER(4,4,6,20,20), AMATEUR(4,5,8,40,30), EXPERT(4,7,12,50,30);
+    FIRSTTIMER(2, 2, 1, 300, 20), BEGINNER(4, 4, 6, 20, 20), AMATEUR(4, 5, 8, 40, 30), EXPERT(4, 7, 12, 50, 30);
 
     private int windowsHorizontal;
     private int windowsVertical;
@@ -10,7 +10,7 @@ public enum LevelsEnum {
     private int timeInSeconds;
 
     LevelsEnum(int windowsHorizontal, int windowsVertical,
-               int windowsOnFire, int people, int timeInSeconds)  {
+               int windowsOnFire, int people, int timeInSeconds) {
         this.windowsHorizontal = windowsHorizontal;
         this.windowsVertical = windowsVertical;
         this.windowsOnFire = windowsOnFire;

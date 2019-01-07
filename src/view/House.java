@@ -31,17 +31,13 @@ public class House extends JPanel {
         setLayout(null);
         setVisible(true);
         buildHouse();
-        WindowModel windowModel =  new WindowModel(false, false);
-        Window window = new Window(50, 50, windowModel);
-        add(window);
     }
 
     private void buildHouse() {
-
        windows = new ArrayList<>();
        List<WindowModel> windowModels = new ArrayList<>();
        for(int el = 0; el < levelsEnum.getWindowsVertical() * levelsEnum.getWindowsHorizontal(); el++) {
-           WindowModel windowModel = new WindowModel(false, false);
+           WindowModel windowModel = new WindowModel(false);
            windowModels.add(windowModel);
        }
 

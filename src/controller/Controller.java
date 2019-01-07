@@ -23,19 +23,17 @@ public class Controller {
 
     public Controller() {
         file = new File("scores.xml");
+        writerXML = new WriterXML();
+        writerXML.setFile(file);
+        saxReader = new SAXReader();
         readFile();
-        System.out.println("here");
     }
 
-    public boolean writeXML() {
-        if (writerXML == null)
-            writerXML = new WriterXML(results, userSettings);
-            writerXML.setFile(file);
+    private void writeXML() {
         try {
-            writerXML.write();
-            return true;
+            writerXML.write(results, userSettings);
         } catch (Exception e) {
-            return false;
+            System.out.println(e.getMessage());
         }
     }
 
@@ -43,21 +41,15 @@ public class Controller {
         return userSettings.getMoney();
     }
 
-    public boolean readFile() {
-        if (saxReader == null)
-            saxReader = new SAXReader();
+    public void readFile() {
         try {
-
             SAXParserFactory factory = SAXParserFactory.newInstance();
             SAXParser parser = factory.newSAXParser();
             parser.parse(file, saxReader);
             userSettings = saxReader.getUserSettings();
             results = saxReader.getScores();
-
-            return true;
         } catch (Exception ex) {
             ex.printStackTrace();
-            return false;
         }
     }
 
@@ -84,7 +76,7 @@ public class Controller {
         results.clear();
         userSettings.setFirehouse(FirehoseEnum.STANDART);
         userSettings.setMoney(0);
-        userSettings.setBoughtHose(new ArrayList<>());
+        userSettings.getBoughtHose().clear();
         writeXML();
     }
 

@@ -10,8 +10,6 @@ public class ScoreResult {
     private String score;
     private Date date;
 
-    public ScoreResult() {}
-
     public String getName() {
         return name;
     }

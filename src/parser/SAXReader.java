@@ -5,10 +5,8 @@ import model.LevelsEnum;
 import model.ScoreResult;
 import model.UserSettings;
 import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -21,7 +19,7 @@ public class SAXReader extends DefaultHandler {
     private ElementNames thisEl;
 
     @Override
-    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+    public void startElement(String uri, String localName, String qName, Attributes attributes) {
 
         if (qName.equals(ElementNames.user.toString())) {
             settings = new UserSettings();
@@ -84,7 +82,7 @@ public class SAXReader extends DefaultHandler {
     }
 
     @Override
-    public void characters(char[] ch, int start, int length) throws SAXException {
+    public void characters(char[] ch, int start, int length) {
         String str = new String(ch, start, length).trim();
 
         if ("".equals(str))
@@ -131,7 +129,7 @@ public class SAXReader extends DefaultHandler {
     }
 
     @Override
-    public void endElement(String namespaceURI, String localName, String qName) throws SAXException {
+    public void endElement(String namespaceURI, String localName, String qName)  {
         if (qName.equals(ElementNames.score.toString())) {
             scores.add(scoreResult);
             scoreResult = null;

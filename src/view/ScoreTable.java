@@ -8,19 +8,18 @@ import java.util.List;
 import java.util.Vector;
 
 public class ScoreTable extends JTable {
-    private String[] columnNames = {"NAME", "DIFFICULTY", "DATE", "SCORE"};
     private DefaultTableModel dtm;
     private List<ScoreResult> results;
 
     public ScoreTable(List<ScoreResult> results) {
         this.results = results;
         dtm = new DefaultTableModel();
-        for (int el = 0; el < columnNames.length; el++) {
-            dtm.addColumn(columnNames[el]);
+        String[] columnNames = {"NAME", "DIFFICULTY", "DATE", "SCORE"};
+        for (String columnName : columnNames) {
+            dtm.addColumn(columnName);
         }
         for(ScoreResult result : results) {
-            Vector v = new Vector();
-            v = result.returnVec();
+            Vector v = result.returnVec();
             dtm.addRow(v);
         }
         setModel(dtm);

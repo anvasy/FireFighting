@@ -23,22 +23,14 @@ public class WriterXML {
     private List<ScoreResult> scores;
     private UserSettings settings;
 
-    public WriterXML(File file, List<ScoreResult> scores, UserSettings settings) {
-        this.file = file;
-        this.scores = scores;
-        this.settings = settings;
-    }
-
-    public WriterXML(List<ScoreResult> scores, UserSettings settings) {
-        this.scores = scores;
-        this.settings = settings;
-    }
-
     public void setFile(File file) {
         this.file = file;
     }
 
-    public void write() throws TransformerException, ParserConfigurationException {
+    public void write(List<ScoreResult> s, UserSettings set) throws TransformerException, ParserConfigurationException {
+        scores = s;
+        settings = set;
+
         if (file != null && scores != null && settings != null) {
             doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
 

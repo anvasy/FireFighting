@@ -22,5 +22,4 @@ public class WaterCircle extends Sprite {
             loadImage("resources/e_water.png");
         getImageDimensions();
     }
-
 }

@@ -54,7 +54,6 @@ public class ShopFrame extends JFrame {
         if(controller.hasFirehose(FirehoseEnum.IMPROVED))
             buyImpr.setEnabled(false);
 
-
         JLabel elite = new JLabel("ELITE:");
         JLabel chars3 = new JLabel("Radius: " + FirehoseEnum.ELITE.getRadius() + " Cost: " + FirehoseEnum.ELITE.getCost());
         chooseEl = new JButton("CHOOSE");

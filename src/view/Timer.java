@@ -1,7 +1,5 @@
 package view;
 
-import controller.TimerListener;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -11,10 +9,9 @@ public class Timer extends JPanel {
 
     private javax.swing.Timer timer;
     private JLabel showTime;
-    private TimerListener timerListener;
     private TimeCounter tc;
 
-    public Timer(int max, TimerListener timerController) {
+    public Timer(int max) {
         setOpaque(false);
 
         showTime = new JLabel("00:00");
@@ -22,8 +19,6 @@ public class Timer extends JPanel {
         tc = new TimeCounter(max);
         timer = new javax.swing.Timer(1000, tc);
         timer.start();
-
-        this.timerListener = timerController;
 
         add(showTime);
     }
@@ -34,6 +29,11 @@ public class Timer extends JPanel {
 
     public void stop() {
         timer.stop();
+    }
+
+    public void alertMain() {
+        MainFrame frame = (MainFrame) getRootPane().getParent();
+        frame.stopEverything();
     }
 
     public class TimeCounter implements ActionListener {
@@ -54,7 +54,7 @@ public class Timer extends JPanel {
             } else if(counter < 1){
                 timer.stop();
                 showTime.setText("00:00");
-                timerListener.timeOut();
+                alertMain();
             }
         }
     }

@@ -69,8 +69,6 @@ public class HighScoreFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 scoreTable.removeData();
                 controller.clearScores();
-                revalidate();
-                repaint();
             }
         });
         ok.addActionListener(new ActionListener() {

@@ -69,7 +69,6 @@ public class StartFrame extends JFrame {
         clear.setBounds(20, 270,200, 30);
         copyright.setBounds(220, 450, 300, 30);
 
-
         add(coin);
         add(coins);
         add(start);
@@ -107,9 +106,6 @@ public class StartFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controller.clearAll();
-                coins.setText("0");
-                revalidate();
-                repaint();
             }
         });
     }

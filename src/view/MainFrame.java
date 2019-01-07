@@ -1,7 +1,6 @@
 package view;
 
 import controller.Controller;
-import controller.TimerListener;
 import model.LevelsEnum;
 
 import javax.swing.*;
@@ -39,7 +38,7 @@ public class MainFrame extends JFrame {
         height = windowHeight * levelsEnum.getWindowsVertical() + offset * (levelsEnum.getWindowsVertical() - 1) + 160;
 
         setContentPane(new JLabel(new ImageIcon("resources/background.png")));
-        initUI();
+        initComponents();
 
         setTitle("FireFighting");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -51,7 +50,7 @@ public class MainFrame extends JFrame {
         action();
     }
 
-    private void initUI() {
+    private void initComponents() {
         toMenu =  new JButton();
         toMenu.setIcon(new ImageIcon("resources/back.png"));
         toMenu.setBounds(0, 0, 30, 30);
@@ -76,8 +75,7 @@ public class MainFrame extends JFrame {
 
         moveHorizontalSlider();
 
-        TimerListener timerListener = new TimerListener(MainFrame.this);
-        timer = new Timer(levelsEnum.getTimeInSeconds(), timerListener);
+        timer = new Timer(levelsEnum.getTimeInSeconds());
         int x = width/2 - 40;
         timer.setBounds(x , 10, 100, 30);
 

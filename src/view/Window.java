@@ -21,8 +21,6 @@ public class Window extends Sprite {
 
         if(windowModel.getIsOnFire())
             loadImage("resources/window_on_fire.png");
-        else if(windowModel.getIsHuman())
-            loadImage("resources/window_human.png");
         else
             loadImage("resources/window.png");
 
